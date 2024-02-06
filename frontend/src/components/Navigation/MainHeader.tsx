@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import UpcomingSessions from '../Sessions/UpComingSessions.jsx';
+import UpcomingSessions from '../Bookings/UpComingBookings.js';
 import Button from '../UI/Button.jsx';
 
 export default function MainHeader() {

@@ -1,7 +1,11 @@
 // import { combineReducers } from 'redux';
 
 import sessionsReducer from './sessions';
-import { bookSessionReducer, upComingSessionReducer } from './session';
+import {
+  bookSessionReducer,
+  upComingSessionReducer,
+  deleteItemReducer,
+} from './session';
 
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
@@ -11,6 +15,7 @@ export const store = configureStore({
     sessions: sessionsReducer,
     bookSession: bookSessionReducer,
     upComingSession: upComingSessionReducer,
+    deleteItem: deleteItemReducer,
   },
 });
 export type RootState = ReturnType<typeof store.getState>;

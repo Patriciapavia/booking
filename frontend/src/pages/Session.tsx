@@ -30,6 +30,7 @@ export default function SessionPage() {
     function handleStopBooking() {
         setIsBooking(false);
     }
+    console.log(loadedSession.date, 'loadedSession.date')
 
     return (
         <main className='w-4/5 max-w-[60rem] my-12 mx-auto'>

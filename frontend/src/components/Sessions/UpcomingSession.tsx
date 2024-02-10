@@ -3,7 +3,7 @@ import Button from '../UI/Button.tsx';
 
 type UpcomingSessionProps = {
     session: Session;
-    _id: string;
+
     onCancel: () => void;
 };
 
@@ -11,6 +11,7 @@ export default function UpcomingSession({
     session,
     onCancel,
 }: UpcomingSessionProps) {
+    console.log('session', session)
     return (
         <article className="my-4 p-4 bg-teal-800 rounded-md flex justify-between">
             <div>
@@ -30,6 +31,13 @@ export default function UpcomingSession({
                         year: 'numeric',
                     })}
                 </time> */}
+                <time className='text-gray-400 text-base' dateTime={new Date(session.date).toISOString()}>
+                    {new Date(session.date).toLocaleDateString('en-US', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                    })}
+                </time>
             </div>
             <p>
                 <Button textOnly onClick={onCancel}>

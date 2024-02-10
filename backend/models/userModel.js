@@ -1,0 +1,52 @@
+import mongoose from 'mongoose';
+import bcypt from 'bcryptjs';
+
+const userSchema = mongoose.Schema(
+  {
+    name: {
+      type: String,
+      required: true,
+    },
+    email: {
+      type: String,
+      required: true,
+      unoque: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
+    order: [
+      {
+        title: { type: String, required: true },
+        image: { type: String, required: true },
+        duration: { type: Number, required: true },
+      },
+    ],
+  },
+  {
+    timestamps: true,
+  }
+);
+
+userSchema.methods.matchPassword = async function (enteredPassword) {
+  return await bcypt.compare(enteredPassword, this.password);
+};
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) {
+    next();
+  }
+
+  const salt = await bcypt.genSalt(10);
+  this.password = await bcypt.hash(this.password, salt);
+});
+
+const User = mongoose.model('User', userSchema);
+
+export default User;

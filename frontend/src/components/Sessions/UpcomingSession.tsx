@@ -1,12 +1,9 @@
+import { Session } from '../../utils/utils.ts';
 import Button from '../UI/Button.tsx';
 
 type UpcomingSessionProps = {
-    session: {
-        id: string;
-        title: string;
-        summary: string;
-        date: string;
-    };
+    session: Session;
+    _id: string;
     onCancel: () => void;
 };
 
@@ -19,13 +16,20 @@ export default function UpcomingSession({
             <div>
                 <h3 className='m-0 text-teal-300'>{session.title}</h3>
                 <p className='my-2'>{session.summary}</p>
-                <time dateTime={new Date(session.date).toISOString()}>
+                {/* <time dateTime={new Date(session.date).toISOString()}>
                     {new Date(session.date).toLocaleDateString('en-US', {
                         day: 'numeric',
                         month: 'short',
                         year: 'numeric',
                     })}
-                </time>
+                </time> */}
+                {/* <time className='text-gray-400 text-base' dateTime={new Date(session.date).toISOString()}>
+                    {new Date(session.date).toLocaleDateString('en-US', {
+                        day: 'numeric',
+                        month: 'short',
+                        year: 'numeric',
+                    })}
+                </time> */}
             </div>
             <p>
                 <Button textOnly onClick={onCancel}>

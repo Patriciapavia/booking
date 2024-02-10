@@ -1,14 +1,15 @@
 import { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 
-import UpcomingSessions from '../Bookings/UpComingBookings.js';
+import UpcomingSessions from '../Sessions/UpComingSessions.js';
 import Button from '../UI/Button.jsx';
 
 export default function MainHeader() {
     const [upcomingSessionsVisible, setUpcomingSessionsVisible] = useState(false);
-
     function showUpcomingSessions() {
         setUpcomingSessionsVisible(true);
+
+
     }
 
     function hideUpcomingSessions() {

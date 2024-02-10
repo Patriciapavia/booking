@@ -1,19 +1,27 @@
 import { useEffect, useRef } from "react";
 
 import Modal, { type ModalHandle } from "../UI/Modal.tsx";
-import UpcomingSession from "./UpcomingBooking.tsx";
-import { useSessionsContext } from "../../store/sessions-context.tsx";
+import UpcomingSession from "./UpcomingSession.tsx";
 import Button from "../UI/Button.tsx";
+import { upComingSessionSelector, getUpComingSession, deleteItem } from '../../slices/session.ts'
+
+import { useAppDispatch, useAppSelector } from '../../slices/index.ts'
+import { Session } from "../../utils/utils.ts";
 
 type UpcomingSessionsProps = {
     onClose: () => void; // onClose is accepted to "tell" the parent component that the UpcomingSessions component should be removed from the DOM
 };
 
+type UpcomingSession = {
+
+    title: string;
+    sumarry: string;
+}
+
 export default function UpcomingSessions({ onClose }: UpcomingSessionsProps) {
     const modal = useRef<ModalHandle>(null);
-    const sessionsCtx = useSessionsContext();
-
-    console.log(sessionsCtx);
+    const { upComingSession } = useAppSelector(upComingSessionSelector)
+    const dispatch = useAppDispatch()
 
     // useEffect is used to open the Modal via its exposed `open` method when the component is mounted
     useEffect(() => {
@@ -22,22 +30,30 @@ export default function UpcomingSessions({ onClose }: UpcomingSessionsProps) {
         }
     }, []);
 
+    useEffect(() => {
+        dispatch(getUpComingSession())
+    }, [dispatch])
+
+
+
     function handleCancelSession(sessionId: string) {
-        sessionsCtx.cancelSession(sessionId);
+        // sessionsCtx.cancelSession(sessionId);
+        console.log(sessionId, 'sessionId')
+        dispatch(deleteItem(sessionId))
     }
 
-    const hasSessions = sessionsCtx.upcomingSessions.length > 0;
-
+    const hasSessions = upComingSession.length > 0;
+    console.log(upComingSession, 'bookedItem')
     return (
         <Modal ref={modal} onClose={onClose}>
             <h2>Upcoming Sessions</h2>
-            {hasSessions && (
+            {upComingSession && (
                 <ul>
-                    {sessionsCtx.upcomingSessions.map((session) => (
-                        <li key={session.id}>
+                    {upComingSession?.map((session) => (
+                        <li key={session._id}>
                             <UpcomingSession
                                 session={session}
-                                onCancel={() => handleCancelSession(session.id)}
+                                onCancel={() => handleCancelSession(session._id)}
                             />
                         </li>
                     ))}

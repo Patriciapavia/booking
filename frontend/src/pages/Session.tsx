@@ -1,16 +1,19 @@
 import { useState } from 'react';
 import { useParams } from 'react-router-dom';
-
+import { useSelector } from 'react-redux';
 import { SESSIONS } from '../../dummy-sessions.ts';
 import Button from '../components/UI/Button.tsx';
-import BookSession from '../components/Bookings/Booking.tsx';
+import BookSession from '../components/Sessions/BookSession.tsx';
+import { sessionsSelector } from '../slices/sessions.ts';
 
 export default function SessionPage() {
     const params = useParams<{ id: string }>();
     const [isBooking, setIsBooking] = useState(false);
+    const { sessions } = useSelector(sessionsSelector)
+
 
     const sessionId = params.id;
-    const loadedSession = SESSIONS.find((session) => session.id === sessionId);
+    const loadedSession = sessions.find((session) => session._id === sessionId);
 
     if (!loadedSession) {
         return (

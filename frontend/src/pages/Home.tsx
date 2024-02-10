@@ -5,6 +5,8 @@ import listImg from '../assets/list.jpg';
 import certificateImg from '../assets/certificate.jpg';
 
 const Home = () => {
+
+
     const sectionStyle = 'flex gap-8 my-12'
     const imageStyle = 'w-40 h-40 object-contain rounded-full'
     const heading3Style = 'text-lg text-gray-400'

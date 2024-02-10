@@ -1,18 +1,13 @@
 import Button from '../UI/Button.tsx';
 
-type SessionItemProps = {
-    id: string;
-    title: string;
-    summary: string;
-    image: string;
-};
+import { Session } from '../../utils/utils.ts';
 
 export default function SessionItem({
     image,
     title,
     summary,
-    id,
-}: SessionItemProps) {
+    _id,
+}: Session) {
     return (
         <article className='flex flex-col bg-teal-500 text-white rounded-md overflow-hidden shadow-md text-center'>
             <img className='w-full h-48 object-cover' src={image} alt={title} />
@@ -22,7 +17,7 @@ export default function SessionItem({
                     <p className='text-gray-200 text-base'>{summary}</p>
                 </div>
                 <p className="mt-3">
-                    <Button className='hover:text-white text-teal-800' to={id}>Learn More</Button>
+                    <Button className='hover:text-white text-teal-800' to={_id}>Learn More</Button>
                 </p>
             </div>
         </article>

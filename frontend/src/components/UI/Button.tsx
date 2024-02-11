@@ -1,7 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
 import { Link, type LinkProps } from "react-router-dom";
 
-// Setting up shared BaseProps that will be used no matter if a <button> or <Link> should be rendered
 type BaseProps = {
     children: ReactNode;
     textOnly?: boolean;

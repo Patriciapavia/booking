@@ -1,5 +1,3 @@
-// import { combineReducers } from 'redux';
-
 import sessionsReducer from './sessions';
 import {
   bookSessionReducer,

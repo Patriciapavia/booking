@@ -2,6 +2,7 @@ import axios from 'axios';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Dispatch } from 'redux';
 import { Session } from '../utils/utils';
+import { RootState } from './index'; // Assuming you have a store setup
 
 interface BookSessionState {
   loading: boolean;
@@ -9,6 +10,7 @@ interface BookSessionState {
   session: Session[];
   upComingSession: Session[];
   deleteItem: Session[];
+  suceess: boolean;
 }
 
 const initialState: BookSessionState = {
@@ -17,6 +19,7 @@ const initialState: BookSessionState = {
   session: [],
   upComingSession: [],
   deleteItem: [],
+  suceess: false,
 };
 
 const userId = '65c6db948c340e86f6c4a2db';
@@ -27,10 +30,15 @@ const bookSessionSlice = createSlice({
   name: 'bookSession',
   initialState,
   reducers: {
+    bookSession: (state) => {
+      state.loading = true;
+      state.hasErrors = false;
+    },
     bookSessionSuccess: (state, action: PayloadAction<Session[]>) => {
       state.session = action.payload;
       state.loading = false;
       state.hasErrors = false;
+      state.suceess = true;
     },
     bookSessionFailure: (state) => {
       state.loading = false;
@@ -63,15 +71,19 @@ const deleteItemSlice = createSlice({
   },
 });
 
-export const { bookSessionSuccess, bookSessionFailure } =
+export const { bookSessionSuccess, bookSessionFailure, bookSession } =
   bookSessionSlice.actions;
 export const { upComingSessionSuccess } = upComingSessionSlice.actions;
 export const { deleteItemSuccess } = deleteItemSlice.actions;
 
-export const deleteItemSelector = (state: { deleteItem: BookSessionState }) =>
-  state.deleteItem;
-export const bookSessionSelector = (state: { session: BookSessionState }) =>
-  state.session;
+export const deleteItemSelector = (state: RootState) => state.deleteItem;
+
+export const bookSessionSelector = (state: RootState) => {
+  return {
+    ...state,
+  };
+};
+
 export const upComingSessionSelector = (state: {
   upComingSession: BookSessionState;
 }) => state.upComingSession;
@@ -121,8 +133,9 @@ export const getUpComingSession = () => {
   };
 };
 
-export const bookSession = (session: Session) => {
+export const bookSessionAction = (session: Session) => {
   return async (dispatch: Dispatch) => {
+    dispatch(bookSession());
     try {
       const config = {
         headers: {
@@ -143,7 +156,6 @@ export const bookSession = (session: Session) => {
         config
       );
       dispatch(bookSessionSuccess(responseData));
-
       console.log(responseData, 'response from book item');
     } catch (error) {
       dispatch(bookSessionFailure());

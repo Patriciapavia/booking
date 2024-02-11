@@ -23,14 +23,14 @@ export default function MainHeader() {
                 <UpcomingSessions onClose={hideUpcomingSessions} />
             )}
             <header className='w-4/5 max-w-[80rem] mx-auto my-8 flex justify-between items-center hover:border-teal-300 active:border-teale-300 focus:border-teal-300 focus:outline-none'>
-                <h1 className='m-0 text-lg text-teal-500'>7 Days</h1>
-                <nav>
+                <h1 className='m-0 lg:text-lg text-sm text-teal-500'>7 Days</h1>
+                <nav className='text-sm lg:text-lg'>
                     <ul className='flex gap-6 items-center text-teal-500'>
                         <li className={listStyle}>
                             <NavLink to="/" className={({ isActive }) => isActive ? 'active' : ''} end>Our Mission</NavLink>
                         </li >
                         <li className={listStyle}>
-                            <NavLink to="/sessions" className={({ isActive }) => isActive ? 'active' : ''}>Explore what's available</NavLink>
+                            <NavLink to="/sessions" className={({ isActive }) => isActive ? 'active' : ''}>Explore our sessions</NavLink>
                         </li>
                         <li >
                             <Button onClick={showUpcomingSessions}>Upcoming Booking</Button>

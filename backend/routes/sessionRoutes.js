@@ -55,14 +55,13 @@ router.delete(
   protect,
   asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
-    console.log(order, ' order');
 
     if (order) {
       await Order.findOneAndDelete({ _id: req.params.id });
-      res.json({ message: 'Order removed' });
+      res.json({ message: 'Session removed' });
     } else {
       res.status(404);
-      throw new Error('Order not found');
+      throw new Error('Session not found');
     }
   })
 );

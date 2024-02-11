@@ -4,7 +4,6 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/userModel.js';
 import generateToken from '../utils/generateToken.js';
 import protect from '../middleware/authMiddleware.js';
-import Order from '../models/sessionModel.js';
 
 router.post(
   '/login',
@@ -28,33 +27,7 @@ router.post(
   })
 );
 
-// @desc GET user profile
 
-// @route GET /users/profile
-
-//@ access private
-
-router.post(
-  '/book-item',
-  protect,
-  asyncHandler(async (req, res) => {
-    const user = await User.findById(req.user._id);
-    const { bookItems } = req.body;
-
-    if (user) {
-      const order = new Order({
-        bookItems,
-        user: req.user._id,
-      });
-      const createdOrder = await order.save();
-
-      res.status(200).json(createdOrder);
-    } else {
-      res.status(404);
-      throw new Error('Invalid email or password');
-    }
-  })
-);
 
 // @desc  user profile
 

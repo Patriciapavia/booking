@@ -2,17 +2,14 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from './index'; // Assuming you have a store setup
 import { Dispatch } from 'redux';
 import { Session } from '../utils/utils';
-export interface Product {
-  // Define your product interface here
-}
 
-export interface ProductsState {
+export interface SessionsState {
   loading: boolean;
   hasErrors: boolean;
   sessions: Session[];
 }
 
-export const initialState: ProductsState = {
+export const initialState: SessionsState = {
   loading: false,
   hasErrors: false,
   sessions: [],

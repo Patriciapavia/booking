@@ -16,6 +16,7 @@ type UpcomingSessionsProps = {
 export default function UpcomingSessions({ onClose }: UpcomingSessionsProps) {
     const modal = useRef<ModalHandle>(null);
     const { upComingSession } = useAppSelector(upComingSessionSelector)
+
     const { deleteItem } = useAppSelector(deleteItemSelector)
     const dispatch = useAppDispatch()
 
